@@ -1,6 +1,6 @@
-package com.betcom.car;
+package com.betacom.car;
 
-import com.betcom.car.process.ProcessJDBC;
+import com.betacom.car.process.ProcessJDBC;
 
 public class MainCarJDBC {
 

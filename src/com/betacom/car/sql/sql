@@ -1,0 +1,102 @@
+use project_car;
+
+
+drop table vehicles;
+create table vehicles(
+	id_vehicles int auto_increment,
+	vehicle_type varchar (100) not null,
+	brand varchar (100) not null,
+	model varchar (100) not null,
+	number_wheels int not null,
+	wheel_size decimal not null,
+	fuel_type varchar (100) not null,
+	transmission varchar (100) not null,
+	category varchar (100) not null,
+	color varchar (100) not null,
+	year int not null,
+	frame_material varchar (100) not null,
+	max_speed int not null,
+	primary key(id_vehicles)
+)
+
+
+ALTER TABLE vehicles MODIFY wheel_size DECIMAL(4,2) NOT NULL;
+
+
+INSERT INTO vehicles (
+    vehicle_type, brand, model, number_wheels, wheel_size, fuel_type,
+    transmission, category, color, year, frame_material, max_speed
+)
+VALUES
+('Car', 'Toyota', 'Corolla', 4, 15.5, 'Gasoline', 'Automatic', 'Sedan', 'Blue', 2021, 'Steel', 180),
+('Motorcycle', 'Honda', 'CB500F', 2, 17.0, 'Gasoline', 'Manual', 'Street', 'Red', 2022, 'Aluminum', 185),
+('Bicycle', 'Trek', 'Domane SL 6', 2, 28.0, 'None', 'None', 'Road', 'Black', 2023, 'Carbon', 45),
+('Car', 'Tesla', 'Model 3', 4, 18.0, 'Electric', 'Automatic', 'Sedan', 'Red', 2023, 'Aluminum', 225),
+('Motorcycle', 'Ducati', 'Panigale V4', 2, 17.0, 'Gasoline', 'Manual', 'Sport', 'Red', 2023, 'Aluminum', 299),
+('Bicycle', 'Specialized', 'Allez', 2, 28.0, 'None', 'None', 'Road', 'Silver', 2022, 'Aluminum', 50);
+
+drop table cars;
+create table cars (
+    id int auto_increment primary key,
+    number_of_doors int not null,
+    plate varchar(20) not null unique,
+    body_style varchar(50) not null, -- berlina, coupe, suv
+    engine_capacity int not null,
+    number_of_gears int not null,
+    has_navigation_system boolean not null,
+    has_parking_sensors boolean not null,
+    vehicle_id int not null unique,
+    foreign key (vehicle_id) references vehicles(id_vehicles)
+);
+
+insert into cars (
+    number_of_doors,
+    plate,
+    body_style,
+    engine_capacity,
+    number_of_gears,
+    has_navigation_system,
+    has_parking_sensors
+) values
+(4, 'ABC1234', 'berlina', 1600, 6, true, true),
+(2, 'XYZ5678', 'coupe', 2000, 6, false, true),
+(5, 'SUV9988', 'suv', 2500, 8, true, false);
+
+
+drop table motorcycles;
+create table motorcycles (
+    id int auto_increment primary key,
+    plate varchar(20) not null unique,
+    body_style varchar(50) not null, -- e.g., naked
+    engine_capacity int not null,
+    has_abs boolean not null,
+    transmission_type varchar(50) not null,
+    number_of_gears int not null,
+    vehicle_id int not null unique,
+    foreign key (vehicle_id) references vehicles(id_vehicles)
+);
+
+insert into motorcycles (
+    plate, body_style, engine_capacity, has_abs, transmission_type, number_of_gears
+) values
+('MTN1234', 'naked', 700, true, 'manual', 6),
+('CRF5678', 'adventure', 1000, true, 'manual', 6),
+('CBR900', 'sport', 900, false, 'manual', 6),
+('DCT2021', 'touring', 1200, true, 'automatic', 7);
+
+drop table bikes;
+create table bikes (
+    id int auto_increment primary key,
+    type varchar(50) not null,
+    suspension_type varchar(50) not null, -- e.g., senza, mono, di
+    folding boolean not null,
+    brake_type varchar(50) not null,
+    vehicle_id int not null unique,
+    foreign key (vehicle_id) references vehicles(id_vehicles)
+);
+
+insert into bikes (type, suspension_type, folding, brake_type) values
+('mountain', 'mono', false, 'disc'),
+('road', 'senza', false, 'rim'),
+('folding', 'senza', true, 'disc'),
+('hybrid', 'di', false, 'disc');

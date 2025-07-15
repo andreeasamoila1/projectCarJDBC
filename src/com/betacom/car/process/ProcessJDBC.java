@@ -1,4 +1,4 @@
-package com.betcom.car.process;
+package com.betacom.car.process;
 
 public class ProcessJDBC {
 
