@@ -1,4 +1,4 @@
-package com.betacom.car.models;
+package com.betacom.car.jdbc.models;
 
 public class Car extends Vehicle{
 	private Integer numberOfDoors;
@@ -8,6 +8,32 @@ public class Car extends Vehicle{
 	private Integer numberOfGears;
 	private boolean hasNavigationSystem;
     private boolean hasParkingSensors;
+    private Vehicle id;
+    
+    
+
+	public Car() {
+		super();
+	}
+	
+    
+    
+    
+    public Car(Integer numberOfDoors, String plate, String bodyStyle, Integer engineCapacity, Integer numberOfGears,
+			boolean hasNavigationSystem, boolean hasParkingSensors, Vehicle id) {
+		super();
+		this.numberOfDoors = numberOfDoors;
+		this.plate = plate;
+		this.bodyStyle = bodyStyle;
+		this.engineCapacity = engineCapacity;
+		this.numberOfGears = numberOfGears;
+		this.hasNavigationSystem = hasNavigationSystem;
+		this.hasParkingSensors = hasParkingSensors;
+		this.id = id;
+	}
+	
+	
+    
     
 	public Integer getNumberOfDoors() {
 		return numberOfDoors;
@@ -62,8 +88,8 @@ public class Car extends Vehicle{
 				+ getCategory() + ", getColor()=" + getColor() + ", getYear()=" + getYear() + ", getFrameMaterial()="
 				+ getFrameMaterial() + ", getMaxSpeed()=" + getMaxSpeed()  + "]";
 	}
-	
-	
-    
+
+
+
 	
 }

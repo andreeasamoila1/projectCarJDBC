@@ -1,10 +1,15 @@
-package com.betacom.car;
+package com.betacom.car.jdbc;
 
-import com.betacom.car.process.ProcessJDBC;
+import static com.betacom.car.jdbc.utilities.Utils.readRecord;
+
+import java.util.List;
+
+import com.betacom.car.jdbc.process.ProcessJDBC;
 
 public class MainCarJDBC {
 
 	public static void main(String[] args) {
+		
 		if (new ProcessJDBC().execute()) {
 			System.out.println("Fine normale");
 		} else {

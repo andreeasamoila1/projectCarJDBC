@@ -1,4 +1,4 @@
-package com.betacom.car.models;
+package com.betacom.car.jdbc.models;
 
 public class Vehicle {
 
@@ -15,6 +15,30 @@ public class Vehicle {
 	private Integer year; 
 	private String frameMaterial;
 	private Integer maxSpeed;
+	
+	public Vehicle() {
+		super();
+	}
+	public Vehicle(Integer id, String vehicleType, String brand, String model, Integer numberWheels, Double wheelSize,
+			String fuelType, String transmission, String category, String color, Integer year, String frameMaterial,
+			Integer maxSpeed) {
+		super();
+		this.id = id;
+		this.vehicleType = vehicleType;
+		this.brand = brand;
+		this.model = model;
+		this.numberWheels = numberWheels;
+		this.wheelSize = wheelSize;
+		this.fuelType = fuelType;
+		this.transmission = transmission;
+		this.category = category;
+		this.color = color;
+		this.year = year;
+		this.frameMaterial = frameMaterial;
+		this.maxSpeed = maxSpeed;
+	}
+	
+	
 	public String getVehicleType() {
 		return vehicleType;
 	}
@@ -93,6 +117,17 @@ public class Vehicle {
 	public void setMaxSpeed(Integer maxSpeed) {
 		this.maxSpeed = maxSpeed;
 	}
-	
+	@Override
+	public String toString() {
+		return "Vehicle [id=" + id + ", vehicleType=" + vehicleType + ", brand=" + brand + ", model=" + model
+				+ ", numberWheels=" + numberWheels + ", wheelSize=" + wheelSize + ", fuelType=" + fuelType
+				+ ", transmission=" + transmission + ", category=" + category + ", color=" + color + ", year=" + year
+				+ ", frameMaterial=" + frameMaterial + ", maxSpeed=" + maxSpeed + "]";
+	}
+
+
+
+
+
 	
 }

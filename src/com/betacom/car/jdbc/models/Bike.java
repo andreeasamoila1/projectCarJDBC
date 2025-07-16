@@ -1,10 +1,35 @@
-package com.betacom.car.models;
+package com.betacom.car.jdbc.models;
 
 public class Bike extends Vehicle{
 	private String type;
 	private String suspensionType; 
 	private Boolean folding;
 	private String brakeType;
+	private Vehicle id;
+	
+	
+
+	public Bike() {
+		super();
+	}
+	
+
+
+
+
+	public Bike(String type, String suspensionType, Boolean folding, String brakeType, Vehicle id) {
+		super();
+		this.type = type;
+		this.suspensionType = suspensionType;
+		this.folding = folding;
+		this.brakeType = brakeType;
+		this.id = id;
+	}
+
+	
+	
+	
+	
 	public String getType() {
 		return type;
 	}
@@ -39,6 +64,7 @@ public class Bike extends Vehicle{
 				+ getYear() + ", getFrameMaterial()=" + getFrameMaterial() + ", getMaxSpeed()=" + getMaxSpeed()
 				+ "]";
 	}
-	
+
+
 	
 }

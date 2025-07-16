@@ -1,4 +1,4 @@
-package com.betacom.car.models;
+package com.betacom.car.jdbc.models;
 
 public class Motorcycle extends Vehicle{
 	private String plate; //deve essere univoca...
@@ -7,6 +7,31 @@ public class Motorcycle extends Vehicle{
 	private boolean hasABS;
 	private String transmissionType;
 	private int numberOfGears;
+	private Vehicle id;
+	
+	
+
+	public Motorcycle() {
+		super();
+	}
+
+
+
+
+	public Motorcycle(String plate, String bodyStyle, Integer engineCapacity, boolean hasABS, String transmissionType,
+			int numberOfGears, Vehicle id) {
+		super();
+		this.plate = plate;
+		this.bodyStyle = bodyStyle;
+		this.engineCapacity = engineCapacity;
+		this.hasABS = hasABS;
+		this.transmissionType = transmissionType;
+		this.numberOfGears = numberOfGears;
+		this.id = id;
+	}
+
+
+	
 	public String getPlate() {
 		return plate;
 	}
@@ -53,8 +78,5 @@ public class Motorcycle extends Vehicle{
 				+ ", getCategory()=" + getCategory() + ", getColor()=" + getColor() + ", getYear()=" + getYear()
 				+ ", getFrameMaterial()=" + getFrameMaterial() + ", getMaxSpeed()=" + getMaxSpeed() + "]";
 	}
-	
-	
-	
-	
+
 }

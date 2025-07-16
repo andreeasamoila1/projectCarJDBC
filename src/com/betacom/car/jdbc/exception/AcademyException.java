@@ -1,4 +1,4 @@
-package com.betacom.car.exception;
+package com.betacom.car.jdbc.exception;
 
 public class AcademyException extends Exception{
 

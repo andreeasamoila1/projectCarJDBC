@@ -1,4 +1,4 @@
-package com.betacom.car.singleton;
+package com.betacom.car.jdbc.singleton;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,8 +8,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.betacom.car.exception.AcademyException;
-import com.betacom.car.utilities.SQLManager;
+import com.betacom.car.jdbc.exception.AcademyException;
+import com.betacom.car.jdbc.utilities.SQLManager;
 
 //This class is responsible for loading configuration and SQL query files, 
 //and managing database connectivity 
@@ -55,11 +55,11 @@ public class SQLConfiguration {
 			// Tries to read two files:
 			try {
 				// sql.properties: loads into prop
-				InputStream input = new FileInputStream("./sql.properties");
+				InputStream input = new FileInputStream("sql.properties");
 				prop.load(input);
 				
 				// queries.properties: loads into queries
-				InputStream sql = new FileInputStream("./queries.properties");
+				InputStream sql = new FileInputStream("queries.properties");
 				queries.load(sql);
 				
 				// Uses Java's Properties.load(InputStream) to parse the key-value pairs.
@@ -113,4 +113,6 @@ public class SQLConfiguration {
 		public void setTransaction() throws SQLException{
 			connection.setAutoCommit(false);
 		}
+		
+		
 }
