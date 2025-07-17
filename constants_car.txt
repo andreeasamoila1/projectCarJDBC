@@ -1,0 +1,12 @@
+vehicle_type=car,motorcycle,bicycle  
+brand=fiat,renault,bmw,tesla,bianchi,trek,ducati,specialized,honda,yamaha,mercedes,tecnizer 
+model=corolla,cb500f,domane sl 6,model 3,panigale v4,allez 
+number_wheels=4,3,2
+wheel_size=16,17,18,28
+fuel_type=gasoline,diesel,electric,hybrid,none
+transmission=manual,automatic,none
+category=road,offroad,suv,mtb,cross,sedan,street,sport
+color=white,black,green,yellow,brown,red,purple,blue,orange
+year=2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025   
+frame_material=steel,aluminum,carbon
+max_speed=180,150,45,200,225,250,300

@@ -16,10 +16,8 @@ public class Car extends Vehicle{
 		super();
 	}
 	
-    
-    
-    
-    public Car(Integer numberOfDoors, String plate, String bodyStyle, Integer engineCapacity, Integer numberOfGears,
+
+	public Car(Integer numberOfDoors, String plate, String bodyStyle, Integer engineCapacity, Integer numberOfGears,
 			boolean hasNavigationSystem, boolean hasParkingSensors, Vehicle id) {
 		super();
 		this.numberOfDoors = numberOfDoors;
@@ -31,10 +29,7 @@ public class Car extends Vehicle{
 		this.hasParkingSensors = hasParkingSensors;
 		this.id = id;
 	}
-	
-	
-    
-    
+
 	public Integer getNumberOfDoors() {
 		return numberOfDoors;
 	}
@@ -88,6 +83,10 @@ public class Car extends Vehicle{
 				+ getCategory() + ", getColor()=" + getColor() + ", getYear()=" + getYear() + ", getFrameMaterial()="
 				+ getFrameMaterial() + ", getMaxSpeed()=" + getMaxSpeed()  + "]";
 	}
+
+
+
+
 
 
 

@@ -1,19 +1,29 @@
 package com.betacom.car.jdbc.singleton;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.betacom.car.jdbc.exception.AcademyException;
+import com.betacom.car.jdbc.models.Vehicle;
 import com.betacom.car.jdbc.utilities.SQLManager;
 
 //This class is responsible for loading configuration and SQL query files, 
 //and managing database connectivity 
 public class SQLConfiguration {
+	private Integer id = 0;
+
 
 	// Implements the Singleton pattern: only one instance of this class will exist.
 	// instance holds the single shared object of SQLConfiguration.
@@ -29,6 +39,9 @@ public class SQLConfiguration {
 	
 	// This will hold the JDBC connection object to interact with the database.
 	private Connection connection = null;  // connection to database
+	
+	private List<Vehicle> vehiclesList = new ArrayList<Vehicle>();
+	static Map<String, String[]> controlls = new HashMap<String, String[]>(); // key colore, string[] valori
 	
 	// Makes the constructor private, preventing external classes from creating instances.
 	// Enforces the Singleton pattern (only accessible inside the class).
@@ -51,9 +64,19 @@ public class SQLConfiguration {
 	}
 	
 	// Loads two .properties files (one for config, one for SQL queries).
-		private static void loadConfiguration() throws AcademyException{
+		public static void loadConfiguration() throws AcademyException{
+			String path = "constants_car.txt";
+			
 			// Tries to read two files:
 			try {
+				 try (BufferedReader reader = new BufferedReader(new FileReader(path))){
+					reader.lines()   // crea un stream di lines
+			              .map(line -> line.split("="))
+			              .filter(parts -> parts.length == 2)
+			              .forEach(parts -> controlls.put(parts[0], parts[1].split(",")));
+				 } catch (Exception e) {
+				        e.printStackTrace();
+				    }
 				// sql.properties: loads into prop
 				InputStream input = new FileInputStream("sql.properties");
 				prop.load(input);
@@ -71,6 +94,24 @@ public class SQLConfiguration {
 			}  catch (IOException e) {
 				throw new AcademyException(e.getMessage());
 			}
+		}
+		
+		public boolean isValidValue(String key, String value) {
+		    String[] values = controlls.get(key);
+		    return values != null && 
+		    		Arrays.stream(values)
+		    			.anyMatch(it -> value.equalsIgnoreCase(it));
+		}
+
+		public Vehicle insertVehicle(Vehicle vehicle) {
+			vehicle.setId(++id);
+			vehiclesList.add(vehicle);
+			return vehicle;
+			
+		}
+		
+		public void showVeicoli(){
+			vehiclesList.forEach(v -> System.out.println(v));
 		}
 	
 	// Retrieves config values like DB URL, user, etc.

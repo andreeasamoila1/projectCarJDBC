@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import java.util.Map;
 
 import com.betacom.car.jdbc.exception.AcademyException;
 import com.betacom.car.jdbc.singleton.SQLConfiguration;
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 //This class contains methods to interact with a SQL database using JDBC.
 public class SQLManager {

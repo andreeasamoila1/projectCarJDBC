@@ -30,7 +30,7 @@ public class ProcessJDBC {
 	public final static int BODY_STYLE_CAR = 14;
 	public final static int ENGINE_CAPACITY_CAR = 15;
 	public final static int NUMBER_OF_GEARS_CAR = 16;
-	public final static int HAN_NAVIGATION_SYSTEM = 17;
+	public final static int HAS_NAVIGATION_SYSTEM = 17;
 	public final static int HAS_PARKING_SENSORS = 18;
 	//motorcycle
 	public final static int PLATE_MOTORCYCLE = 19;
@@ -52,9 +52,9 @@ public class ProcessJDBC {
 	
 	
 	
-	public boolean execute() {
+	public boolean execute(List<String> params) throws AcademyException {
 		System.out.println("Begin Process JDBC");
-	
+		SQLConfiguration.loadConfiguration();
 		SQLProcess pro = null;
 		
 		
@@ -62,7 +62,18 @@ public class ProcessJDBC {
 		try {
 			SQLConfiguration.getInstance().getConnection();
 			System.out.println("Connection with db ok");
-
+			
+			
+			for(String inp:params) {
+				String[] oper = inp.split(":");
+				if ("add".equalsIgnoreCase(oper[0].trim())) {
+					String[] param = oper[1].split(",");
+				} else if ("list".equalsIgnoreCase(oper[0].trim())) {
+					System.out.println("Vehicles list: ");
+					SQLConfiguration.getInstance().showVeicoli();
+					
+				}
+			}
 			System.out.println("Process QUERY ****************************");
 			pro = new ProcessQuery();		
 			pro.execute();

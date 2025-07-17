@@ -1,5 +1,5 @@
-add:Car, Toyota, Corolla, 4, 15.5, Gasoline, Automatic, Sedan, Blue, 2021, Steel, 180
-update:Car, Tesla, Model 3, 4, 18.0, Electric, Automatic, Sedan, Red, 2023, Aluminum, 225
-add:Motorcycle, Honda, CB500F, 2, 17.0, Gasoline, Manual, Street, Red, 2022, Aluminum, 185
+add:car, toyota, corolla, 4, 15.50, gasoline, automatic, road, blue, 2021, steel, 180
+update:car, tesla, model 3, 4, 18.00, electric, automatic, road, red, 2023, aluminum, 225
+add:motorcycle, honda, cb500f, 2, 17.00, gasoline, manual, road, red, 2022, aluminum, 185
 delete:Motorcycle,2
-list
+list 
