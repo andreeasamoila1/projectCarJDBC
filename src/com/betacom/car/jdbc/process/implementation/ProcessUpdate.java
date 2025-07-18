@@ -1,5 +1,8 @@
 package com.betacom.car.jdbc.process.implementation;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,46 +16,103 @@ public class ProcessUpdate implements SQLProcess{
 	@Override
 	public boolean execute() {
 		boolean rc = true;
-		VehicleDAO vechicleDAO = new VehicleDAO();
-		try {
+		VehicleDAO vehicleDAO = new VehicleDAO();
+		try (BufferedReader reader = new BufferedReader(new FileReader("input_car.txt"))) {
 
 			SQLConfiguration.getInstance().setAutoCommit();   // autocommit settato
 
-			Object[] params = new Object[] {
-					"Car", "Honda", "Civic", 4, 14.8, "Gasoline", "Automatic", "Sedan", "Red", 2022, "Aluminum", 174
-			};
-			int id = vechicleDAO.insert("vehicles.insert", params);
+			
+			 String line;
+	            while ((line = reader.readLine()) != null) {
+	                if (line.trim().isEmpty()) continue;
 
-			System.out.println("PK del cliente inserito:" + id);
+	                String[] parts = line.split(":", 2);
+	                String command = parts[0].trim().toLowerCase();
 
-			List<Vehicle> vehicleList = vechicleDAO.findAll();
-			vehicleList.forEach(vehicle -> System.out.println(vehicle));
+	                if (command.equals("list")) {
+	                    List<Vehicle> vehicles = vehicleDAO.findAll();
+	                    vehicles.forEach(System.out::println);
+	                    continue;
+	                }
 
-			params = new Object[] {
-					"Car", "Mercedes", "G-Clas",
-					id
-			};
+	                String[] values = parts[1].split(",");
+	                for (int i = 0; i < values.length; i++) {
+	                    values[i] = values[i].trim();
+	                }
 
-			int numero = vechicleDAO.update("vehicles.update", params);
+	                switch (command) {
+	                    case "add":
+	                        Vehicle vehicleToAdd = mapToVehicle(values);
+	                        Object[] insertParams = vehicleToParams(vehicleToAdd);
+	                        int id = vehicleDAO.insert("vehicles.insert", insertParams);
+	                        System.out.println("Inserted with ID: " + id);
+	                        break;
+	                        
+	                    case "update":
+	                        if (values.length < 13) {
+	                            System.out.println("Invalid update line: " + line);
+	                            break;
+	                        }
+	                        Vehicle vehicleToUpdate = mapToVehicle(values);
+	                        int updateId = Integer.parseInt(values[12]);
+	                        Object[] updateParams = vehicleToParams(vehicleToUpdate, updateId);
+	                        int updatedRows = vehicleDAO.update("vehicles.update", updateParams);
+	                        System.out.println("Updated rows: " + updatedRows);
+	                        break;
 
-			Optional<Vehicle> vehicle = vechicleDAO.findById(new Object[] {id});
-			if (vehicle.isEmpty())
-				System.out.println("Vehicle " + id + " not found");
-			else
-				System.out.println(vehicle.get());
+	                    case "delete":
+	                        int deleteId = Integer.parseInt(values[1]);
+	                        int deletedRows = vehicleDAO.delete("vehicles.delete", new Object[]{deleteId});
+	                        System.out.println("Deleted rows: " + deletedRows);
+	                        break;
 
-
-
-
-			numero = vechicleDAO.delete("vehicles.delete", new Object[] {id});
-			System.out.println("Numero di righe cancellate:" + numero);
-
-
+	                    default:
+	                        System.out.println("Unknown command: " + command);
+	                        
+	                        break;
+	                }
+	            }
+	            
+	            
+	           
+			
 		} catch (Exception e) {
 			System.out.println("Error :" + e.getMessage());
+			
 			rc = false;
 		}
 
 		return rc;
 	}
+	
+	private Vehicle mapToVehicle(String[] values) {
+        return new Vehicle(
+                0, // ID will be set after insert or provided for update
+                values[0], values[1], values[2],
+                Integer.parseInt(values[3]),
+                Double.parseDouble(values[4]),
+                values[5], values[6], values[7], values[8],
+                Integer.parseInt(values[9]),
+                values[10],
+                Integer.parseInt(values[11])
+        );
+    }
+
+    private Object[] vehicleToParams(Vehicle v) {
+        return new Object[]{
+                v.getVehicleType(), v.getBrand(), v.getModel(),
+                v.getNumberWheels(), v.getWheelSize(), v.getFuelType(),
+                v.getTransmission(), v.getCategory(),
+                v.getColor(), v.getYear(), v.getFrameMaterial(),
+                v.getMaxSpeed()
+        };
+    }
+
+    private Object[] vehicleToParams(Vehicle v, int id) {
+        Object[] base = vehicleToParams(v);
+        Object[] full = new Object[base.length + 1];
+        System.arraycopy(base, 0, full, 0, base.length);
+        full[base.length] = id;
+        return full;
+    }
 }
